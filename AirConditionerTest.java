@@ -55,7 +55,6 @@ public class AirConditionerTest{
     void testMinimumTemperature(){
     AirConditioner ac = new AirConditioner();
     ac.turnOn();
-
         for(int index = 0; index < 20; index++){
             ac.decreaseTemperature();    
         }  
