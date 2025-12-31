@@ -1,55 +1,30 @@
 import java.util.ArrayList;
-public class Student{
-    private String name;
-    private String grade;
-    private String courses;
-
-    private ArrayList<Courses> courses;
-    
-    public Student(String name, String grade, String courses){
+public class Student {
+  private String name;
+  private int grade;
+  private ArrayList courses;
+  public Student(String name, int grade){
     this.name = name;
     this.grade = grade;
-    this.courses = courses;
-    
-    courses = new ArrayList<Courses>();
-
-    }
-    
-    public void setName(String name){
-    this.name = name;
-    }
-    
-    public String getName(){
+    this.courses = new ArrayList();
+  }
+  public String getName() {
     return name;
-    }
-    
-    public void setGrade(String grade){
-    this.grade = grade;
-    }
-    
-    public String getGrade(){
+  }
+  public int getGrade() {
     return grade;
-    }
-
-    public void setCourses(ArrayList courses){
-    this.courses = courses;
-    }
-    
-    public ArrayList<Courses> getCourses(){
+  }
+  public ArrayList getCourses() {
     return courses;
-    }
-    
-    public void addCourse(ArrayList courses){
-    courses.add(courses);
-    }
-    
-    public void removeCourse(ArrayList courses){
-    courses.remove(courses);
-    }
-
-    public ArrayList<Courses> getStudentCourses(){
-    return courses;    
-    }
-    
-
+  }
+  public void addCourse(String course) {
+    courses.add(course);
+  }
+  public void removeCourse(String course) {
+    courses.remove(course);
+  }
+  public void printStudentDetails() {
+    System.out.println("Name: " + name);
+    System.out.println("Grade: " + grade);
+  }
 }
