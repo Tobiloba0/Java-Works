@@ -61,7 +61,8 @@ public class GradeManager{
             String studentNumber;
             while (true){
             System.out.print("Enter 10 digits Identification Number for student " + studentIndex + ": ");
-                studentNumber = input.nextLine().trim();
+            studentNumber = input.nextLine().trim();
+                
                     if(studentNumber.isEmpty() || !studentNumber.matches("\\d{10}")){
                         System.out.println("Invalid entry. Try again!!");
                             continue;                    
@@ -69,10 +70,18 @@ public class GradeManager{
                         break;
             }
             Student student = new Student(studentName, studentNumber);
-            
+         String subjectName;  
          for(int subjectIndex = 1; subjectIndex <= numberOfSubjects; subjectIndex++){
+
+            while(true){
              System.out.print("Enter subject " + subjectIndex + " name: ");
-                String subjectName = input.nextLine().trim();
+                subjectName = input.nextLine().trim();
+                if(subjectName.isEmpty() || subjectName.matches(".*\\d.*")){
+                    System.out.println("Invalid entry. Try again");
+                        continue;
+                }else
+                    break;
+            }
                 
                 int score;
                 while(true){   
@@ -95,6 +104,22 @@ public class GradeManager{
             }//inner loop
             
             students.add(student);
-        }// 
+        }// outer loop
     }//collect data
+    public void displaySummary(){
+        System.out.println("\n====== CLASS SUMMARY =====");   
+        
+    for(Student student : students){    
+        System.out.println("\nStudent: " + student.getName());
+        
+        for(Subject subject : student.getSubjects()){
+            System.out.println(subject.getName() + ": " + subject.getScore()            
+            );
+        }
+        
+        System.out.println("Total: " + student.getTotalScore());
+        System.out.println("Average: " + student.getAverageScore());
+    } 
+    
+    }
 }//class closed
