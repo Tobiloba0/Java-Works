@@ -2,11 +2,27 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class GradeManager{
     private ArrayList<Student> students;
+    private ArrayList<String> identificationNumbers;
+    private ArrayList<String> subjects;
     private int numberOfSubjects;
 
     public GradeManager(){
-        students = new ArrayList<>();
-
+        students = new ArrayList<>();   
+        identificationNumbers = new ArrayList<>();
+        subjects = new ArrayList<>();
+        
+    }
+    
+    public boolean checkSubjectExist(String subjectName){
+        
+    return subjects.contains(subjectName) ||
+           subjectName.isEmpty() ||
+           subjectName.matches(".*\\d.*");
+    }
+    
+    public boolean checkStudentNumberExist(String studentNumber){
+    return identificationNumbers.contains(studentNumber) ||
+        studentNumber.isEmpty() || !studentNumber.matches("\\d{10}");
     }
     
     public void collectData(){
@@ -58,48 +74,55 @@ public class GradeManager{
             }else
                 break;
         }
+
             String studentNumber;
             while (true){
             System.out.print("Enter 10 digits Identification Number for student " + studentIndex + ": ");
             studentNumber = input.nextLine().trim();
-                
-                    if(studentNumber.isEmpty() || !studentNumber.matches("\\d{10}")){
-                        System.out.println("Invalid entry. Try again!!");
-                            continue;                    
-                    }else
-                        break;
-            }
-            Student student = new Student(studentName, studentNumber);
-         String subjectName;  
-         for(int subjectIndex = 1; subjectIndex <= numberOfSubjects; subjectIndex++){
+            if (checkStudentNumberExist(studentNumber)){
+                System.out.println("Invalid Number, try again");
+                    continue;
+            }else
+                break;
+            }//while closed
+            identificationNumbers.add(studentNumber);
+        
+         Student student = new Student(studentName, studentNumber);
 
-            while(true){
+        for(int subjectIndex = 1; subjectIndex <= numberOfSubjects; subjectIndex++){
+         String subjectName; 
+         while(true){
+           
              System.out.print("Enter subject " + subjectIndex + " name: ");
-                subjectName = input.nextLine().trim();
-                if(subjectName.isEmpty() || subjectName.matches(".*\\d.*")){
-                    System.out.println("Invalid entry. Try again");
+             subjectName = input.nextLine().trim();
+             
+             if(checkSubjectExist(subjectName)){
+                 System.out.println("Invalid entry. Try again");
+                    continue;
+            }else{
+                 break; 
+          
+            }//while closed
+           
+        }
+           subjects.add(subjectName);
+        int score;
+        while(true){   
+        System.out.print("Enter score in " + subjectName + ": ");
+            String scoreString = input.nextLine().trim();
+    
+        try{
+             score = Integer.parseInt(scoreString); 
+                if(score < 0 || score > 100){
+                    System.out.println("Score cannot be less than 0 or greater that 100, Try again!!");
                         continue;
                 }else
-                    break;
-            }
-                
-                int score;
-                while(true){   
-                System.out.print("Enter score in " + subjectName + ": ");
-                    String scoreString = input.nextLine().trim();
-            
-                try{
-                     score = Integer.parseInt(scoreString); 
-                        if(score < 0 || score > 100){
-                            System.out.println("Score cannot be less than 0 or greater that 100, Try again!!");
-                                continue;
-                        }else
-                            break;               
-                    }catch(NumberFormatException e){
-                        System.out.print("Enter a valid whole number");
-                    }// closing catch
-                }// while closed
-                
+                    break;               
+            }catch(NumberFormatException e){
+                System.out.print("Enter a valid whole number");
+            }// closing catch
+        }// while closed
+        
                 student.addSubject(new Subject(subjectName, score));
             }//inner loop
             
