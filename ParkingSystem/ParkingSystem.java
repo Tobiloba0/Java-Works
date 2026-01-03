@@ -135,8 +135,11 @@ public class ParkingSystem{
             case 3 -> {
                         System.out.println("Enter slot Number");
                         String userInputValue = input.nextLine();
-                        parking.parkAtSlot(userInputValue);
-                        System.out.println("Parked at slot " + userInputValue + " successfully");
+                        boolean result = parking.parkAtSlot(userInputValue);
+                        if(result){
+                          System.out.println("Parked at slot " + userInputValue + " successfully");
+                        }else
+                            System.out.println("Slot " + userInputValue + " is already occupied");
                        }
             case 4 -> {
                         System.out.println("Enter slot Number");
