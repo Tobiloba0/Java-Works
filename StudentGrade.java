@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class StudentGrade {
 
-    // ================= VALIDATION =================
     public static int parsePositiveInt(String input) {
         int value = Integer.parseInt(input);
         if (value <= 0) {
