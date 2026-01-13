@@ -5,8 +5,6 @@ public class Main{
     manager.collectData(); 
     manager.displaySummary();   
     
-
-    
     }
 
 

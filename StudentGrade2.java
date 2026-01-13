@@ -16,7 +16,7 @@ public class StudentGrade2{
             throw new IllegalArgumentException("Subject cannot be empty.");
         }
 
-        if(!subject.matches("[a-zA-Z0-9 ]+")){
+        if(!subject.matches("[a-zA-Z0-9 ]+")){ 
             throw new IllegalArgumentException("Subject contains invalid charaters");
         }
         return subject;   
@@ -43,7 +43,7 @@ public class StudentGrade2{
         while(true){
             try{
                 System.out.println("How many subjects do they offer?: ");
-                numberOfSubjects = validPositiveNumber(input.nextLine());
+                numberOfSubjects = Integer.parseInt(checkSubject(input.nextLine()));
                     break;
             }catch(NumberFormatException e){
                 System.out.println("Enter a valid Number");
@@ -78,12 +78,32 @@ public class StudentGrade2{
         
         //enter subject
         
+//        //finding hardest subject i.e smallest total
+//        public static int smallestScoreIndex(){
+//            for(int subject = 0; subject < numberOfSubjects; subject++){
+//                int small = 0;
+//                for(int count = 1; count < numberOfSubjects; count++){
+//                    if(subjectTotal[count] < subjectTotal[subject]){
+//                        small = count;
+//                    }
+//                }
+//                return smallestScore = small + 1;   
+//            }
+//            
+//        }
+//
+//        //finding the number of subject failed
+//        public static int smallestSubjectScoreCount(int smallestScore){
+//            return numberOfFail[smallestScore];    
+//        }
+        
+        
         for(int index = 0; index < numberOfSubjects; index++){
             while(true){
                 try {
                     System.out.println("Enter name of subject " + (index+1) + ": ");
                     String subject = checkSubject(input.nextLine());
-                    subjects.add(subject);
+                    subjects.add(subject); 
                     break;
                 } catch(IllegalArgumentException e){
                     System.out.println(e.getMessage());
@@ -196,15 +216,6 @@ public class StudentGrade2{
                 subjectTotalAverage[index] = ((double)total) / numberOfStudents;
         }
         
-        //finding hardest subject i.e smallest total
-        for(int subject = 0; subject < numberOfSubjects; subject++){
-            int small = 0;
-            for(int count = 1; count < numberOfSubjects; count++){
-                if(subjectTotal[count] < subjectTotal[subject]){
-                    small = count;
-                }
-            }
-            smallestScore = small + 1;   
         }
         //finding hardest subject i.e smallest total
         for(int subject = 0; subject < numberOfSubjects; subject++){
@@ -216,6 +227,7 @@ public class StudentGrade2{
             }
             largestScore = large + 1;   
         }
+       
 
         //Number of passes
         for(int subject = 0; subject < numberOfSubjects; subject++){
@@ -227,6 +239,7 @@ public class StudentGrade2{
                 }
             }
         }
+  
         
         //largest passes 2 get number of easiest subject
         for(int subject = 0; subject < numberOfSubjects; subject++){
@@ -272,13 +285,13 @@ public class StudentGrade2{
 
          //largest fail 2 get number of hardest subject
         for(int subject = 0; subject < numberOfSubjects; subject++){
-            int largest = numberOfFail[subject];
+            int largestFailureCount = numberOfFail[subject];
             for(int count = 1; count < numberOfSubjects; count++){
-                if(numberOfFail[count] > largest){
-                    largest = numberOfFail[count];
+                if(numberOfFail[count] > largestFailureCount){
+                    largestFailureCount = numberOfFail[count];
                 }
             }
-         largestFailedValue = largest;
+         largestFailedValue = largestFailureCount;
         }
         
 
@@ -303,6 +316,8 @@ public class StudentGrade2{
             }
             positions[index] = position;
         }
+
+       
     
         //table output
             System.out.println("\n==========================================================");
@@ -338,8 +353,8 @@ public class StudentGrade2{
    
         }
             // overallSummary
-            System.out.println("The hardest subject is Subject " + largestSubjectFailedIndex + " with " + largestFailedValue + " failures");
-            System.out.println("The easiest subject is Subject " + largestSubjectPassedIndex + " with " + largestPassedValue + " passes");
+            System.out.println("The hardest subject is Subject " + smallestScoreIndex()+ " with " + smallestSubjectScoreCount() + " failures");
+            System.out.println("The easiest subject is Subject " + largestScore + " with " + largestPassedValue + " passes");
             System.out.println("The overall Highest score is scored by Student");
             System.out.println("The overall Lowest score is scored by Student");
             System.out.println("\n==========================================================");
